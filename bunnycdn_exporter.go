@@ -29,10 +29,11 @@ import (
 	"sync"
 	"time"
 
+	"github.com/alecthomas/kingpin/v2"
 	"github.com/prometheus/client_golang/prometheus"
+	buildInfo "github.com/prometheus/client_golang/prometheus/collectors/version"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"github.com/prometheus/common/version"
-	kingpin "gopkg.in/alecthomas/kingpin.v2"
 )
 
 const (
@@ -388,7 +389,7 @@ func main() {
 		log.Fatal(err)
 	}
 	prometheus.MustRegister(exporter)
-	prometheus.MustRegister(version.NewCollector("bunnycdn_exporter"))
+	prometheus.MustRegister(buildInfo.NewCollector("bunnycdn_exporter"))
 
 	log.Println("Listening on", *listenAddress)
 	http.Handle(*metricsPath, promhttp.Handler())
