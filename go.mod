@@ -1,4 +1,4 @@
-module github.com/permutive/bunnycdn_exporter
+module bunnycdn_exporter
 
 go 1.24
 
