@@ -5,3 +5,9 @@ build:
 	CGO_ENABLED=0 go build -trimpath -ldflags="-s -w" -o $(BIN_NAME)
 
 .PHONY: build
+
+test:
+	echo "Testing $(BIN_NAME)..."
+	go test -v ./...
+
+.PHONY: test
