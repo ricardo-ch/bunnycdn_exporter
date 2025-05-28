@@ -288,8 +288,8 @@ func fetchHTTP(uri string, bunnyAPIKey string, sslVerify bool, timeout time.Dura
 		if err != nil {
 			return nil, err
 		}
+		defer resp.Body.Close()
 		if !(resp.StatusCode >= 200 && resp.StatusCode < 300) {
-			resp.Body.Close()
 			return nil, fmt.Errorf("HTTP status %d (%s)", resp.StatusCode, resp.Request.URL)
 		}
 		return resp.Body, nil
