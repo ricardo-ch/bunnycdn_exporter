@@ -239,6 +239,7 @@ func rawGetStatistics(fetch func(path string) (io.ReadCloser, error), extraParam
 	if err != nil {
 		return nil, err
 	}
+	defer body.Close()
 
 	bodyContent, err := ioutil.ReadAll(body)
 	if err != nil {
@@ -258,6 +259,7 @@ func listPullZones(fetch func(path string) (io.ReadCloser, error)) ([]bunnyPullZ
 	if err != nil {
 		return nil, err
 	}
+	defer body.Close()
 
 	bodyContent, err := ioutil.ReadAll(body)
 	if err != nil {
@@ -288,8 +290,8 @@ func fetchHTTP(uri string, bunnyAPIKey string, sslVerify bool, timeout time.Dura
 		if err != nil {
 			return nil, err
 		}
+
 		if !(resp.StatusCode >= 200 && resp.StatusCode < 300) {
-			resp.Body.Close()
 			return nil, fmt.Errorf("HTTP status %d (%s)", resp.StatusCode, resp.Request.URL)
 		}
 		return resp.Body, nil
